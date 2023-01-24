@@ -30,8 +30,6 @@ _site/
 *.xcf
 
 ### cmpres and brstm ###
-*.brstm
-*.cmpres
 # exclude arc files but allow cswtpycsmm's arc directories
 *.arc
 !cswtpycsmm/cswtpycsmm/*.arc

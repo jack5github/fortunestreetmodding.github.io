@@ -1,2 +1,3 @@
 [lfs]
-url = https://gfxfw7a6lk.execute-api.eu-west-1.amazonaws.com/lfs
+url = https://anon:anon@https://urxck5sca6.execute-api.eu-west-1.amazonaws.com/lfsRead
+pushurl = https://aws@kxm1app2d6.execute-api.eu-west-1.amazonaws.com/lfsWrite
