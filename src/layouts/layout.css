@@ -18,7 +18,40 @@
   grid-gap: var(--grid-layout-gap);
 }
 
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: "Noto Sans Nag Mundari", "Helvetica Neue", "Arial", sans-serif
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFF;
+}
+
+h1 {
+  font-weight: 700;
+  text-shadow:
+    -0.125rem -0.125rem 0 #000,
+    0.125rem -0.125rem 0 #000,
+    -0.125rem 0.125rem 0 #000,
+    0.125rem 0.125rem 0 #000;
+}
+
+h2 {
+  font-weight: 600;
+  text-shadow:
+    -0.1rem -0.1rem 0 #000,
+    0.1rem -0.1rem 0 #000,
+    -0.1rem 0.1rem 0 #000,
+    0.1rem 0.1rem 0 #000;
+}
+
+h3, h4, h5, h6 {
+  font-weight: 500;
+  text-shadow:
+    -0.075rem -0.075rem 0 #000,
+    0.075rem -0.075rem 0 #000,
+    -0.075rem 0.075rem 0 #000,
+    0.075rem 0.075rem 0 #000;
+}
 
 :root {
   scroll-behavior: auto !important;
