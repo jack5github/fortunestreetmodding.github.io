@@ -108,7 +108,7 @@ function sentiment_to_div_class(sentiment: number) {
           </div>
           <div class="row row-cols-2 g-2">
             {cards.map((card, index) => (
-            <div class="col" style={"display: block; opacity: " + (card.defaultStandard ? "1" : "0.625") + ";"} id={"card" + (index + 1).toString()} data-easy={card.defaultEasy} data-standard={card.defaultStandard} data-type={slug(card.description.split("!")[0])} data-effect={slug(card.effect)} data-grade={card.grade} data-sentiment={card.sentiment}>
+            <div class="col" style={"display: block; opacity: " + (card.defaultStandard ? "1" : "0.625") + ";"} id={"card" + (index + 1).toString()} data-easy={card.defaultEasy.toString()} data-standard={card.defaultStandard.toString()} data-type={slug(card.description.split("!")[0])} data-effect={slug(card.effect)} data-grade={card.grade} data-sentiment={card.sentiment}>
               <div class={sentiment_to_div_class(card.sentiment)} style="height: 100%;">
                 <div class="row row-cols-2 g-2">
                   <div class="col-4">
@@ -153,6 +153,7 @@ function sentiment_to_div_class(sentiment: number) {
             <h2>Generated YAML</h2>
             <p>Click the button below to copy the generated YAML to your clipboard, and paste it into your custom Fortune Street board's YAML file. Make sure that there is only one <code>ventureCards</code> property in your YAML.</p>
             <code><textarea class="form-control" id="generatedYaml" rows="10" readonly></textarea></code>
+            <!-- TODO: Prevent code from being wrapped around button -->
             <button class="btn btn-primary" id="copyYaml" onclick="cards.copy_yaml_to_clipboard()">Copy to clipboard</button>
           </div>
         </div>
