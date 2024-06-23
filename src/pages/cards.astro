@@ -2,8 +2,12 @@
 import slug from 'slug';
 import Layout from '~/layouts/layout.astro';
 import cards from "~/data/venturecards.yml";
-const effects: string[] = [...new Set(cards.map(card => card.effect))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-const types: string[] = [...new Set(cards.map(card => card.description.split("!")[0]))].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+const effects: string[] = [
+  ...new Set(cards.map(card => card.effect))
+].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+const types: string[] = [
+  ...new Set(cards.map(card => card.description.split("!")[0]))
+].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
 function sentiment_to_div_class(sentiment: number) {
   let classes = "card text-center";
@@ -40,7 +44,7 @@ function sentiment_to_div_class(sentiment: number) {
           <h2>Gamemode</h2>
           <div class="mb-3">
             <p>The game difficulty cards are in by default. If you are using defaults, you don't need to include <code>ventureCards</code> in your board's YAML.</p>
-            <select class="form-select" id="difficulty" onchange="cards.check_cards()">
+            <select class="form-select" id="difficulty" onchange="cards.display_cards()">
               <option value="any">Any</option>
               <option value="both">Both</option>
               <option value="easy">Easy</option>
@@ -51,35 +55,35 @@ function sentiment_to_div_class(sentiment: number) {
           <h2>Grade</h2>
           <div class="mb-3">
             <p>Card grades are assigned by the Fortune Street modding community based on their power among cards with similar effects.</p>
-            <input type="checkbox" class="btn-check-outlined" id="grade0" autocomplete="off" checked onchange="cards.check_cards()"/>
+            <input type="checkbox" class="btn-check-outlined" id="grade0" autocomplete="off" checked onchange="cards.display_cards()"/>
             <label class="btn btn-primary" for="grade0">D</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade1" autocomplete="off" checked onchange="cards.check_cards()"/>
+            <input type="checkbox" class="btn-check-outlined" id="grade1" autocomplete="off" checked onchange="cards.display_cards()"/>
             <label class="btn btn-primary" for="grade1">C</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade2" autocomplete="off" checked onchange="cards.check_cards()"/>
+            <input type="checkbox" class="btn-check-outlined" id="grade2" autocomplete="off" checked onchange="cards.display_cards()"/>
             <label class="btn btn-primary" for="grade2">B</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade3" autocomplete="off" checked onchange="cards.check_cards()"/>
+            <input type="checkbox" class="btn-check-outlined" id="grade3" autocomplete="off" checked onchange="cards.display_cards()"/>
             <label class="btn btn-primary" for="grade3">A</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade4" autocomplete="off" checked onchange="cards.check_cards()"/>
+            <input type="checkbox" class="btn-check-outlined" id="grade4" autocomplete="off" checked onchange="cards.display_cards()"/>
             <label class="btn btn-primary" for="grade4">S</label>
           </div>
           <h2>Sentiment</h2>
           <div class="mb-3">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" checked id="sentimentPositive" onchange="cards.check_cards()"/>
+              <input type="checkbox" class="form-check-input" checked id="sentimentPositive" onchange="cards.display_cards()"/>
               <label class="form-check-label" for="sentimentPositive">Positive</label>
             </div>
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" checked id="sentimentNeutral" onchange="cards.check_cards()"/>
+              <input type="checkbox" class="form-check-input" checked id="sentimentNeutral" onchange="cards.display_cards()"/>
               <label class="form-check-label" for="sentimentNeutral">Neutral</label>
             </div>
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" checked id="sentimentNegative" onchange="cards.check_cards()"/>
+              <input type="checkbox" class="form-check-input" checked id="sentimentNegative" onchange="cards.display_cards()"/>
               <label class="form-check-label" for="sentimentNegative">Negative</label>
             </div>
           </div>
           <h2>Types</h2>
           <div class="mb-3">
-            <select class="form-select" id="types" onchange="cards.check_cards()">
+            <select class="form-select" id="types" onchange="cards.display_cards()">
               <option value="any">Any</option>
               {types.map((type) => (
                 <option value={slug(type)}>{type}</option>
@@ -88,7 +92,7 @@ function sentiment_to_div_class(sentiment: number) {
           </div>
           <h2>Effects</h2>
           <div class="mb-3">
-            <select class="form-select" id="effects" onchange="cards.check_cards()">
+            <select class="form-select" id="effects" onchange="cards.display_cards()">
               <option value="any">Any</option>
               {effects.map((effect) => (
                 <option value={slug(effect)}>{effect}</option>

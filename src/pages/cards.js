@@ -1,16 +1,20 @@
-export function check_cards() {
+export function display_cards() {
+    /*
+    Controls the display of venture cards based on the selected filters.
+    */
     const difficulty = document.getElementById("difficulty");
     for (let i = 1; i <= 128; i++) {
         const card = document.getElementById("card" + i.toString());
-        if (!card) continue;
-        card.style.display = "block";
+        if (card === null) { continue; } // Failure case if card doesn't exist
+        card.style.display = "block"; // Display by default
+        // Get attributes
         const cardEasy = card.getAttribute("data-easy") === "true";
         const cardStandard = card.getAttribute("data-standard") === "true";
         const cardSentiment = parseInt(card.getAttribute("data-sentiment"));
         const cardGrade = parseInt(card.getAttribute("data-grade"));
         const cardType = card.getAttribute("data-type");
         const cardEffect = card.getAttribute("data-effect");
-        // Check difficulty
+        // Check difficulty filter
         if (difficulty.value === "both" && (!cardEasy || !cardStandard)) {
             card.style.display = "none";
             continue;
@@ -24,7 +28,7 @@ export function check_cards() {
             card.style.display = "none";
             continue;
         }
-        // Check sentiment
+        // Check sentiment filters
         if (!document.getElementById("sentimentPositive").checked && cardSentiment === 1) {
             card.style.display = "none";
             continue;
@@ -35,19 +39,19 @@ export function check_cards() {
             card.style.display = "none";
             continue;
         }
-        // Check grade
+        // Check grade filters
         for (let j = 0; j <= 4; j++) {
             if (!document.getElementById("grade" + j.toString()).checked && cardGrade === j) {
                 card.style.display = "none";
                 break;
             }
         }
-        // Check type
+        // Check type filter
         if (document.getElementById("types").value !== "any" && cardType !== document.getElementById("types").value) {
             card.style.display = "none";
             continue;
         }
-        // Check effect
+        // Check effect filter
         if (document.getElementById("effects").value !== "any" && cardEffect !== document.getElementById("effects").value) {
             card.style.display = "none";
             continue;
@@ -56,6 +60,9 @@ export function check_cards() {
 }
 
 export function reset_filters() {
+    /*
+    Resets all the filters to their default values, then refreshes the venture cards.
+    */
     document.getElementById("difficulty").value = "any";
     for (let j = 0; j <= 4; j++) {
         document.getElementById("grade" + j.toString()).checked = true;
@@ -65,10 +72,13 @@ export function reset_filters() {
     document.getElementById("sentimentNegative").checked = true;
     document.getElementById("types").value = "any";
     document.getElementById("effects").value = "any";
-    check_cards();
+    display_cards();
 }
 
 export function reset_selected_cards() {
+    /*
+    Returns all venture cards to their default state (selected if they are default to the Standard difficulty), then updates the selected card counter.
+    */
     for (let i = 1; i <= 128; i++) {
         document.getElementById("card" + i.toString() + "selected").checked = document.getElementById("card" + i.toString()).getAttribute("data-standard") === "true";
     }
@@ -76,6 +86,12 @@ export function reset_selected_cards() {
 }
 
 export function check_selected_cards() {
+    /*
+    Count the number of venture cards that are selected, and updates the card counter and generate YAML button accordingly.
+
+    Returns:
+        boolean: true if there are exactly 64 selected cards, false otherwise.
+    */
     document.getElementById("yaml").style.display = "none";
     let chosenCards = 0;
     for (let i = 1; i <= 128; i++) {
@@ -96,6 +112,12 @@ export function check_selected_cards() {
 }
 
 export function select_all_cards(select = true) {
+    /*
+    Selects or deselects all 128 venture cards, then updates the selected card counter.
+
+    Args:
+        select (boolean): true to select all cards, false to deselect them.
+    */
     for (let i = 1; i <= 128; i++) {
         document.getElementById("card" + i.toString() + "selected").checked = select;
     }
@@ -103,6 +125,12 @@ export function select_all_cards(select = true) {
 }
 
 export function select_visible_cards(select = true) {
+    /*
+    Selects or deselects any visible venture cards, then updates the selected card counter.
+
+    Args:
+        select (boolean): true to select visible cards, false to deselect them.
+    */
     for (let i = 1; i <= 128; i++) {
         console.log(i, document.getElementById("card" + i.toString()).style.display);
         if (document.getElementById("card" + i.toString()).style.display === "block") {
@@ -113,6 +141,9 @@ export function select_visible_cards(select = true) {
 }
 
 export function generate_yaml() {
+    /*
+    Generates and displays the YAML for the selected venture cards if there are exactly 64 selected cards.
+    */
     if (check_selected_cards()) {
         let yaml_str = "ventureCards:";
         for (let i = 1; i <= 128; i++) {
@@ -120,7 +151,7 @@ export function generate_yaml() {
             if (document.getElementById("card" + i.toString() + "selected").checked) {
                 yaml_selected = "1";
             }
-            // Add spaces in front of i to make it easier to read
+            // Add spaces in front of the venture card number to make the YAML easier to read
             let i_str = i.toString();
             if (i < 100) {
                 i_str = " " + i_str;
@@ -131,12 +162,16 @@ export function generate_yaml() {
             yaml_str = yaml_str + "\n  - " + yaml_selected + "  # " + i_str;
         }
         document.getElementById("generatedYaml").textContent = yaml_str;
+        document.getElementById("copyYaml").innerText = "Copy to clipboard";  // Reset from copy_yaml_to_clipboard()
         document.getElementById("yaml").style.display = "block";
         document.getElementById("yaml").scrollIntoView({behavior: "smooth"});
     }
 }
 
 export function copy_yaml_to_clipboard() {
+    /*
+    Copies the generated YAML to the clipboard and updates the copy button text.
+    */
     navigator.clipboard.writeText(document.getElementById("generatedYaml").textContent);
     document.getElementById("copyYaml").innerText = "Copied!";
 }
