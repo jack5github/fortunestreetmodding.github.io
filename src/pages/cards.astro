@@ -23,8 +23,8 @@ const types: string[] = [
     content: "The game difficulty that the venture cards are found in by default. If you are using the defaults, you don't need to include <code>ventureCards</code> in your board's YAML file.",
     allowHTML: true
   });
-  tippy("#gradeTooltip", {
-    content: "Card grades are assigned by the Fortune Street modding community based on their power among cards with similar effects."
+  tippy("#rankTooltip", {
+    content: "Card ranks are assigned by the Fortune Street modding community based on their power among cards with similar effects."
   })
 </script>
 <Layout title="Venture Cards">
@@ -52,18 +52,18 @@ const types: string[] = [
               <option value="neither">Neither</option>
             </select>
           </div>
-          <h2 id="gradeTooltip" style="width: fit-content;">Grade*</h2>
+          <h2 id="rankTooltip" style="width: fit-content;">Rank</h2>
           <div class="mb-3">
-            <input type="checkbox" class="btn-check-outlined" id="grade0" autocomplete="off" checked onchange="cards.display_cards()"/>
-            <label class="btn btn-primary" for="grade0">D</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade1" autocomplete="off" checked onchange="cards.display_cards()"/>
-            <label class="btn btn-primary" for="grade1">C</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade2" autocomplete="off" checked onchange="cards.display_cards()"/>
-            <label class="btn btn-primary" for="grade2">B</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade3" autocomplete="off" checked onchange="cards.display_cards()"/>
-            <label class="btn btn-primary" for="grade3">A</label>
-            <input type="checkbox" class="btn-check-outlined" id="grade4" autocomplete="off" checked onchange="cards.display_cards()"/>
-            <label class="btn btn-primary" for="grade4">S</label>
+            <input type="checkbox" class="btn-check" id="rank0" autocomplete="off" checked onchange="cards.display_cards()">
+            <label class="btn btn-primary" for="rank0" style="padding: 6px;"><img src="/images/ranks/rank_d.webp" style="width: 30px;"/></label>
+            <input type="checkbox" class="btn-check" id="rank1" autocomplete="off" checked onchange="cards.display_cards()">
+            <label class="btn btn-primary" for="rank1" style="padding: 6px;"><img src="/images/ranks/rank_c.webp" style="width: 30px;"/></label>
+            <input type="checkbox" class="btn-check" id="rank2" autocomplete="off" checked onchange="cards.display_cards()">
+            <label class="btn btn-primary" for="rank2" style="padding: 6px;"><img src="/images/ranks/rank_b.webp" style="width: 30px;"/></label>
+            <input type="checkbox" class="btn-check" id="rank3" autocomplete="off" checked onchange="cards.display_cards()">
+            <label class="btn btn-primary" for="rank3" style="padding: 6px;"><img src="/images/ranks/rank_a.webp" style="width: 30px;"/></label>
+            <input type="checkbox" class="btn-check" id="rank4" autocomplete="off" checked onchange="cards.display_cards()">
+            <label class="btn btn-primary" for="rank4" style="padding: 6px;"><img src="/images/ranks/rank_s.webp" style="width: 30px;"/></label>
           </div>
           <h2>Sentiment</h2>
           <div class="mb-3">

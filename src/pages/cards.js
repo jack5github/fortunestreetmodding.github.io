@@ -11,7 +11,7 @@ export function display_cards() {
         const cardEasy = card.getAttribute("data-easy") === "true";
         const cardStandard = card.getAttribute("data-standard") === "true";
         const cardSentiment = parseInt(card.getAttribute("data-sentiment"));
-        const cardGrade = parseInt(card.getAttribute("data-grade"));
+        const cardRank = parseInt(card.getAttribute("data-rank"));
         const cardType = card.getAttribute("data-type");
         const cardEffect = card.getAttribute("data-effect");
         // Check difficulty filter
@@ -39,9 +39,9 @@ export function display_cards() {
             card.style.display = "none";
             continue;
         }
-        // Check grade filters
+        // Check rank filters
         for (let j = 0; j <= 4; j++) {
-            if (!document.getElementById("grade" + j.toString()).checked && cardGrade === j) {
+            if (!document.getElementById("rank" + j.toString()).checked && cardRank === j) {
                 card.style.display = "none";
                 break;
             }
@@ -77,7 +77,7 @@ export function reset_filters() {
     */
     document.getElementById("difficulty").value = "any";
     for (let i = 0; i <= 4; i++) {
-        document.getElementById("grade" + i.toString()).checked = true;
+        document.getElementById("rank" + i.toString()).checked = true;
     }
     document.getElementById("sentimentPositive").checked = true;
     document.getElementById("sentimentNeutral").checked = true;
