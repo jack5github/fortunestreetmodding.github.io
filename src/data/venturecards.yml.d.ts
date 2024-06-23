@@ -4,7 +4,7 @@ export interface VentureCard {
   description: string;
   descriptionExtra?: string;
   effect: string;
-  grade: number;
+  rank: number;
   sentiment: number;
 }
 const content: VentureCard[];

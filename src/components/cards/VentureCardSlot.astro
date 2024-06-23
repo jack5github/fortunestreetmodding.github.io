@@ -14,21 +14,32 @@ function sentiment_to_div_class(sentiment: number) {
   }
   return classes;
 }
+
+function rank_to_img_src(rank: number) {
+  let src = "/images/ranks/rank_";
+  if (rank === 0) {
+    src += "d";
+  } else if (rank === 1) {
+    src += "c";
+  } else if (rank === 2) {
+    src += "b";
+  } else if (rank === 3) {
+    src += "a";
+  } else if (rank === 4) {
+    src += "s";
+  }
+  src += ".webp";
+  return src;
+}
 ---
-<div class="col" style={"display: block; opacity: " + (card.defaultStandard ? "1" : "0.625") + ";"} id={"card" + (index + 1).toString()} data-easy={card.defaultEasy.toString()} data-standard={card.defaultStandard.toString()} data-type={slug(card.description.split("!")[0])} data-effect={slug(card.effect)} data-grade={card.grade} data-sentiment={card.sentiment}>
+<div class="col" style={"display: block; opacity: " + (card.defaultStandard ? "1" : "0.625") + ";"} id={"card" + (index + 1).toString()} data-easy={card.defaultEasy.toString()} data-standard={card.defaultStandard.toString()} data-type={slug(card.description.split("!")[0])} data-effect={slug(card.effect)} data-rank={card.rank} data-sentiment={card.sentiment}>
   <div class={sentiment_to_div_class(card.sentiment)} style="height: 100%;">
     <div class="row row-cols-2 g-2">
       <div class="col-4">
         <div class="card-body" style="padding-right: 0;">
           <header><p>Card No. {index + 1}</p></header>
           <figure><img src={"/images/venturecards/venturecard_" + String(index + 1).padStart(3, '0') + ".webp"} alt={"Venture Card " + (index + 1).toString()} style="max-width: 100%; height: auto;"/></figure>
-          <footer><p><strong>
-            {card.grade === 0 && "D"}
-            {card.grade === 1 && "C"}
-            {card.grade === 2 && "B"}
-            {card.grade === 3 && "A"}
-            {card.grade === 4 && "S"}
-          </strong></p></footer>
+          <footer><img src={rank_to_img_src(card.rank)}/></footer>
         </div>
       </div>
       <div class="col-8">
