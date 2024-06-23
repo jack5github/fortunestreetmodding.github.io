@@ -2,24 +2,14 @@
 import slug from 'slug';
 import Layout from '~/layouts/layout.astro';
 import cards from "~/data/venturecards.yml";
+import VentureCardSlot from "~/components/cards/VentureCardSlot.astro";
+
 const effects: string[] = [
   ...new Set(cards.map(card => card.effect))
 ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 const types: string[] = [
   ...new Set(cards.map(card => card.description.split("!")[0]))
 ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-function sentiment_to_div_class(sentiment: number) {
-  let classes = "card text-center";
-  if (sentiment === 1) {
-    classes += " bg-success";
-  } else if (sentiment === 0) {
-    classes += " bg-secondary";
-  } else if (sentiment === -1) {
-    classes += " bg-danger";
-  }
-  return classes;
-}
 ---
 <script>
   import * as t from "./cards";
@@ -83,19 +73,17 @@ function sentiment_to_div_class(sentiment: number) {
           </div>
           <h2>Types</h2>
           <div class="mb-3">
-            <select class="form-select" id="types" onchange="cards.display_cards()">
-              <option value="any">Any</option>
+            <select class="form-select" id="types" multiple onchange="cards.display_cards()">
               {types.map((type) => (
-                <option value={slug(type)}>{type}</option>
+              <option value={slug(type)} selected>{type}</option>
               ))}
             </select>
           </div>
           <h2>Effects</h2>
           <div class="mb-3">
-            <select class="form-select" id="effects" onchange="cards.display_cards()">
-              <option value="any">Any</option>
+            <select class="form-select" id="effects" multiple onchange="cards.display_cards()">
               {effects.map((effect) => (
-                <option value={slug(effect)}>{effect}</option>
+              <option value={slug(effect)} selected>{effect}</option>
               ))}
             </select>
           </div>
@@ -108,41 +96,7 @@ function sentiment_to_div_class(sentiment: number) {
           </div>
           <div class="row row-cols-2 g-2">
             {cards.map((card, index) => (
-            <div class="col" style={"display: block; opacity: " + (card.defaultStandard ? "1" : "0.625") + ";"} id={"card" + (index + 1).toString()} data-easy={card.defaultEasy.toString()} data-standard={card.defaultStandard.toString()} data-type={slug(card.description.split("!")[0])} data-effect={slug(card.effect)} data-grade={card.grade} data-sentiment={card.sentiment}>
-              <div class={sentiment_to_div_class(card.sentiment)} style="height: 100%;">
-                <div class="row row-cols-2 g-2">
-                  <div class="col-4">
-                    <div class="card-body" style="padding-right: 0;">
-                      <header><p>Card No. {index + 1}</p></header>
-                      <figure><img src={"/images/venturecards/venturecard_" + String(index + 1).padStart(3, '0') + ".webp"} alt={"Venture Card " + (index + 1).toString()} style="max-width: 100%; height: auto;"/></figure>
-                      <footer><p><strong>
-                        {card.grade === 0 && "D"}
-                        {card.grade === 1 && "C"}
-                        {card.grade === 2 && "B"}
-                        {card.grade === 3 && "A"}
-                        {card.grade === 4 && "S"}
-                      </strong></p></footer>
-                    </div>
-                  </div>
-                  <div class="col-8">
-                    <div style="text-align: right;">
-                      <input type="checkbox" style="position: relative; z-index: 1; width: 24px; height: 24px; top: 4px; right: 4px;" id={"card" + (index + 1).toString() + "selected"} checked={card.defaultStandard} onchange="cards.check_selected_cards()"/>
-                    </div>
-                    <div class="card-body">
-                      <p><strong>{card.description}</strong></p>
-                      {card.descriptionExtra !== undefined && (<p><i>({card.descriptionExtra})</i></p>)}
-                      {(card.defaultEasy || card.defaultStandard) && (
-                      <p>
-                        Default in:
-                        {card.defaultEasy && "Easy"}{card.defaultEasy && card.defaultStandard && "/"}{card.defaultStandard && "Standard"}
-                      </p>
-                      )}
-                      <p><i>Effect: {card.effect}</i></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <VentureCardSlot card={card} index={index}/>
             ))}
           </div>
         </div>

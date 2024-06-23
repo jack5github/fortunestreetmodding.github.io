@@ -47,14 +47,26 @@ export function display_cards() {
             }
         }
         // Check type filter
-        if (document.getElementById("types").value !== "any" && cardType !== document.getElementById("types").value) {
-            card.style.display = "none";
-            continue;
+        let typesOptions = document.getElementById("types").options;
+        for (let j = 0; j < typesOptions.length; j++) {
+            let option = typesOptions[j];
+            if (option.value === cardType) {
+                if (!option.selected) {
+                    card.style.display = "none";
+                }
+                break;
+            }
         }
         // Check effect filter
-        if (document.getElementById("effects").value !== "any" && cardEffect !== document.getElementById("effects").value) {
-            card.style.display = "none";
-            continue;
+        let effectsOptions = document.getElementById("effects").options;
+        for (let j = 0; j < effectsOptions.length; j++) {
+            let option = effectsOptions[j];
+            if (option.value === cardEffect) {
+                if (!option.selected) {
+                    card.style.display = "none";
+                }
+                break;
+            }
         }
     }
 }
@@ -64,14 +76,20 @@ export function reset_filters() {
     Resets all the filters to their default values, then refreshes the venture cards.
     */
     document.getElementById("difficulty").value = "any";
-    for (let j = 0; j <= 4; j++) {
-        document.getElementById("grade" + j.toString()).checked = true;
+    for (let i = 0; i <= 4; i++) {
+        document.getElementById("grade" + i.toString()).checked = true;
     }
     document.getElementById("sentimentPositive").checked = true;
     document.getElementById("sentimentNeutral").checked = true;
     document.getElementById("sentimentNegative").checked = true;
-    document.getElementById("types").value = "any";
-    document.getElementById("effects").value = "any";
+    let typesOptions = document.getElementById("types").options;
+    for (let i = 0; i < typesOptions.length; i++) {
+        typesOptions[i].selected = true;
+    }
+    let effectsOptions = document.getElementById("effects").options;
+    for (let i = 0; i < effectsOptions.length; i++) {
+        effectsOptions[i].selected = true;
+    }
     display_cards();
 }
 
